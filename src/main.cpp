@@ -4,6 +4,7 @@
 #include <oled_display.h>
 #include <motor_control.h>
 #include <ros_publisher_subscriber.h>
+#include <drive_timer_fcn.h>
 
 // OLED display settings
 #define i2c_Address 0x3c
@@ -48,8 +49,6 @@ void count_left();
 void count_right();
 void encoder_init(void);
 void drive_straight(int dir);
-void create_timer(void);
-void drive_timer_callback(TimerHandle_t xTimer);
 
 void setup()
 {
@@ -79,7 +78,6 @@ void setup()
 
   // Create and start timer
   create_timer();
-  xTimerStart(drive_timer, portMAX_DELAY);
 }
 
 // Main loop
@@ -158,49 +156,4 @@ void drive_straight(int dir)
   }
 
   vTaskDelay(pdMS_TO_TICKS(20));
-}
-
-// Create an auto-reload software timer to update motor speed
-void create_timer(void)
-{
-
-  drive_timer = xTimerCreate(
-      "Drive Straight Timer",  // Name of timer
-      20 / portTICK_PERIOD_MS, // Period of timer (in ticks), period 0.25s
-      pdTRUE,                  // Auto-reload
-      (void *)1,               // Timer ID
-      drive_timer_callback);   // Callback function
-
-  // Check if timer was created
-  if (drive_timer == NULL)
-  {
-    Serial.println("Could not create timer!");
-  }
-}
-
-// Software timer callback
-void drive_timer_callback(TimerHandle_t xTimer)
-{
-
-  // Use flag to control motor direction
-  if (direction == 1)
-  {
-    drive_straight(1);
-  }
-  else if (direction == 2)
-  {
-    drive_straight(-1);
-  }
-  else if (direction == 3)
-  {
-    left(mtr_power, mtr_power);
-  }
-  else if (direction == 4)
-  {
-    right(mtr_power, mtr_power);
-  }
-  else
-  {
-    stop();
-  }
 }
