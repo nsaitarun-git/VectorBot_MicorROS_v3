@@ -37,6 +37,9 @@ const int mtr_offset = 5;
 // Control mo
 int direction = 0;
 
+// Auto-relod software timer
+static TimerHandle_t drive_timer = NULL;
+
 // ROS communication object
 RosPubSub ros_pub_sub;
 
@@ -44,7 +47,9 @@ RosPubSub ros_pub_sub;
 void count_left();
 void count_right();
 void encoder_init(void);
-void driveStraight(int dir);
+void drive_straight(int dir);
+void create_timer(void);
+void drive_timer_callback(TimerHandle_t xTimer);
 
 void setup()
 {
@@ -71,33 +76,15 @@ void setup()
 
   // Initialise encoders
   encoder_init();
+
+  // Create and start timer
+  create_timer();
+  xTimerStart(drive_timer, portMAX_DELAY);
 }
 
+// Main loop
 void loop()
 {
-
-  // Use flag to control motor direction
-  if (direction == 1)
-  {
-    driveStraight(1);
-  }
-  else if (direction == 2)
-  {
-    driveStraight(-1);
-  }
-  else if (direction == 3)
-  {
-    left(mtr_power, mtr_power);
-  }
-  else if (direction == 4)
-  {
-    right(mtr_power, mtr_power);
-  }
-  else
-  {
-    stop();
-  }
-
   // Start publishing and subscribing to topics
   ros_pub_sub.start_msgs();
 }
@@ -132,20 +119,20 @@ void encoder_init(void)
 }
 
 // Drive robot straight with motor feedback
-void driveStraight(int dir)
+void drive_straight(int dir)
 {
   // Sample number of encoder ticks
   num_ticks_left = enc_left;
   num_ticks_right = enc_right;
 
-  // Set direction
+  // Set direction (reduce left wheel power)
   if (dir == 1)
   {
-    forward(power_left, power_right);
+    forward(power_left - 12, power_right);
   }
   else
   {
-    back(power_left, power_right);
+    back(power_left - 12, power_right);
   }
 
   // Number of ticks counted since last time
@@ -171,4 +158,49 @@ void driveStraight(int dir)
   }
 
   vTaskDelay(pdMS_TO_TICKS(20));
+}
+
+// Create an auto-reload software timer to update motor speed
+void create_timer(void)
+{
+
+  drive_timer = xTimerCreate(
+      "Drive Straight Timer",  // Name of timer
+      20 / portTICK_PERIOD_MS, // Period of timer (in ticks), period 0.25s
+      pdTRUE,                  // Auto-reload
+      (void *)1,               // Timer ID
+      drive_timer_callback);   // Callback function
+
+  // Check if timer was created
+  if (drive_timer == NULL)
+  {
+    Serial.println("Could not create timer!");
+  }
+}
+
+// Software timer callback
+void drive_timer_callback(TimerHandle_t xTimer)
+{
+
+  // Use flag to control motor direction
+  if (direction == 1)
+  {
+    drive_straight(1);
+  }
+  else if (direction == 2)
+  {
+    drive_straight(-1);
+  }
+  else if (direction == 3)
+  {
+    left(mtr_power, mtr_power);
+  }
+  else if (direction == 4)
+  {
+    right(mtr_power, mtr_power);
+  }
+  else
+  {
+    stop();
+  }
 }
