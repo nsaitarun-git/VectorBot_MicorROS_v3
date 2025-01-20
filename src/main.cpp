@@ -141,11 +141,11 @@ void driveStraight(int dir)
   // Set direction
   if (dir == 1)
   {
-    forward(power_left - 10, power_right);
+    forward(power_left, power_right);
   }
   else
   {
-    back(power_left - 10, power_right);
+    back(power_left, power_right);
   }
 
   // Number of ticks counted since last time
