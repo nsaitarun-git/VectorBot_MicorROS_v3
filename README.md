@@ -1,4 +1,4 @@
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/nsaitarun-git/VectorBot_MicroROS_v3)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/nsaitarun-git/VectorBot_MicroROS_v3)
 
 # Vector Bot Lite MicroROS
 
