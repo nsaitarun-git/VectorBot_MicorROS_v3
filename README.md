@@ -4,21 +4,6 @@
 
 ---
 
-## Table of Contents
-
-1. [About the Project](#about-the-project)
-2. [Features](#features)
-3. [Technologies Used](#technologies-used)
-4. [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-5. [Usage](#usage)
-6. [Contributing](#contributing)
-7. [License](#license)
-8. [Acknowledgments](#acknowledgments)
-
----
-
 ## About the Project
 
 Vector Bot Lite is an ongoing project that focuses on integrating **MicroROS** into a low-cost differential drive robot. This is an extension of ROS 2 tailored for microcontrollers. This project demonstrates how to enable efficient robotic communication with limited hardware resources, suitable for lightweight and modular robotics applications.
