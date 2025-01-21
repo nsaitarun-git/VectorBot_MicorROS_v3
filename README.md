@@ -48,10 +48,11 @@ Clone the repository and open the project on PlatformIO.
 git clone git@github.com:nsaitarun-git/VectorBot_MicorROS_v3.git
 ```
 ### Update WiFi Credentials
-Within the ```/lib/ros_publisher_subscriber/ros_publisher_subscriber.cpp``` file, edit the following lines with your WiFi credentials.
+Within the ```/lib/ros_publisher_subscriber/ros_publisher_subscriber.cpp``` file, edit the following lines with your WiFi credentials and PC IP address.
 
 ```c++
 // Wifi credentials
+IPAddress agent_ip(192, 168, 0, 0);
 char ssid[] = "yourssid";
 char psk[] = "yourpassword";
 ```
