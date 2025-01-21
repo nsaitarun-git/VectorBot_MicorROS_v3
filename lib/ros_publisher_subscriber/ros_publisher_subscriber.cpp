@@ -85,7 +85,7 @@ void RosPubSub::pub_sub_define()
         &publisher,
         &node,
         ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, UInt16MultiArray),
-        "motor_vel");
+        "encoder_counts");
 
     // create timer (publish period milli seconds)
     const unsigned int timer_timeout = 500;
