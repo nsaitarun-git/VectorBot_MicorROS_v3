@@ -32,8 +32,8 @@ void RosPubSub::initialize()
     size_t agent_port = 8888;
 
     // Wifi credentials
-    char ssid[] = "yourssid";
-    char psk[] = "yourpassword";
+    char ssid[] = "CommunityFibre10Gb_57E28";
+    char psk[] = "srinivas";
 
     // Set transport
     set_microros_wifi_transports(ssid, psk, agent_ip, agent_port);
