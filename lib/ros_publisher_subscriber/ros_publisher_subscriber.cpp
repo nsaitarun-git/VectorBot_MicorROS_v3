@@ -32,8 +32,8 @@ void RosPubSub::initialize()
     size_t agent_port = 8888;
 
     // Wifi credentials
-    char ssid[] = "CommunityFibre10Gb_57E28";
-    char psk[] = "srinivas";
+    char ssid[] = "yourssid";
+    char psk[] = "yourpassword";
 
     // Set transport
     set_microros_wifi_transports(ssid, psk, agent_ip, agent_port);
@@ -104,14 +104,6 @@ void RosPubSub::cmd_vel_callback(const void *msg_recv)
     // Save recieved data into fields
     float linear_vel = recieved_data->linear.x;
     float angular_vel = recieved_data->angular.z;
-
-    /*
-    // Scale values for both motors
-    int left_lin_speed = linear_vel * 255;
-    int right_lin_speed = linear_vel * 255;
-    int left_ang_speed = angular_vel * 255;
-    int right_ang_speed = angular_vel * 255;
-    */
 
     // Debug
     Serial.print(linear_vel);
