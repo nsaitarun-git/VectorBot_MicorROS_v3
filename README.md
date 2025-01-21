@@ -1,4 +1,4 @@
-# VectorBot_MicroROS_v3
+# Vector Bot Lite MicroROS
 
 **Vector Bot Lite** is a robotics project designed to integrate a low-cost differential drive robot with the MicroROS framework. This repository showcases the power of MicroROS for real-time communication and control in robotic systems.
 
