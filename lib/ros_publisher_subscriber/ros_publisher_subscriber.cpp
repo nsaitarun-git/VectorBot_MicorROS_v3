@@ -28,7 +28,7 @@ RosPubSub::RosPubSub()
 void RosPubSub::initialize()
 {
     // Add Wifi (PC IP Address)
-    IPAddress agent_ip(192, 168, 1, 184);
+    IPAddress agent_ip(192, 168, 0, 0);
     size_t agent_port = 8888;
 
     // Wifi credentials
