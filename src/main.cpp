@@ -154,5 +154,4 @@ void drive_straight(int dir)
     power_left += mtr_offset;
     power_right -= mtr_offset;
   }
-  //vTaskDelay(pdMS_TO_TICKS(20));
 }
