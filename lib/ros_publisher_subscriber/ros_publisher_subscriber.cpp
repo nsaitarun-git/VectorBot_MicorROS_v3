@@ -44,7 +44,7 @@ void RosPubSub::initialize()
     // create init_options
     rclc_support_init(&support, 0, NULL, &allocator);
 
-    // create node_sub
+    // create node
     rclc_node_init_default(&node, "micro_ros_platformio_node", "", &support);
 }
 
@@ -73,7 +73,7 @@ void timer_callback(rcl_timer_t *timer, int64_t last_call_time)
 void RosPubSub::pub_sub_define()
 {
     // create subscriber
-    // subscribe to 'cmd_vel' topic for teleop twist keyboard
+    // subscribe to 'cmd_vel' topic
     rclc_subscription_init_default(
         &cmd_vel_sub,
         &node,
